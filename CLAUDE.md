@@ -154,4 +154,4 @@ Every push to master triggers an automatic Vercel production deploy.
 Run npm run build locally before pushing — build must pass cleanly.
 
 GitHub repo: https://github.com/tanidutta/travel-planner
-Vercel project:
+Vercel project: https://travel-planner-woad-rho.vercel.app
