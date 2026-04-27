@@ -147,11 +147,36 @@ Reusable classes:
 
 ---
 
-## CI / CD
+## CI/CD
 
 Vercel project root is configured to travel-planner/
-Every push to master triggers an automatic Vercel production deploy.
-Run npm run build locally before pushing — build must pass cleanly.
+Every push to main triggers an automatic Vercel production deploy.
 
 GitHub repo: https://github.com/tanidutta/travel-planner
 Vercel project: https://travel-planner-woad-rho.vercel.app
+
+### Push workflow — follow this automatically every time
+When asked to push changes, always run these steps 
+in order without asking for confirmation between each:
+
+Step 1 — npm run build
+         If build fails → stop immediately and report the error
+         Never proceed to commit or push if build fails
+
+Step 2 — git add .
+
+Step 3 — git commit -m "<the commit message provided>"
+
+Step 4 — git push origin main
+
+Step 5 — Report back:
+         "✅ Build passed and pushed to GitHub.
+          Vercel will auto-deploy in ~2 minutes.
+          Live URL: https://travel-planner-woad-rho.vercel.app"
+
+### Push rules
+- Always run npm run build first — no exceptions
+- Never push if build fails
+- Never ask for confirmation between steps 2, 3, and 4
+- Only pause if there is an error
+- Branch is always main — never push to any other branch
