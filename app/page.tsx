@@ -7,6 +7,7 @@ import TripCard from "@/components/TripCard";
 import CreateTripModal from "@/components/CreateTripModal";
 import ConfirmModal from "@/components/ConfirmModal";
 import { useTrips } from "@/hooks/useTrips";
+import Banner from "@/components/Banner";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,75 +33,71 @@ export default function Home() {
   return (
     <div className="bg-slate-50 min-h-screen">
       <Navbar onCreateClick={() => setIsModalOpen(true)} />
-      <div className="max-w-6xl mx-auto px-6 py-10">
+      <div className="max-w-6xl mx-auto px-6 py-8">
+        <Banner />
         {trips.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4 mb-6">
             <div
               onClick={() => setFilter("all")}
-              className="card p-5 flex flex-col justify-between cursor-pointer transition-all"
+              className="card px-3 py-2 flex flex-col items-center justify-center cursor-pointer transition-all"
               style={{
                 borderColor: filter === "all" ? "var(--color-primary)" : "var(--color-border)",
                 borderWidth: filter === "all" ? "2px" : "1px",
               }}
             >
-              <p className="text-xs font-medium uppercase tracking-wide mb-2 text-center"
+              <p className="text-xs font-medium uppercase tracking-wide mb-1 text-center"
                  style={{ color: "var(--color-text-muted)" }}>Total Trips</p>
-              <p className="text-3xl font-bold text-center"
+              <p className="text-2xl font-bold text-center"
                  style={{ color: filter === "all" ? "var(--color-primary)" : "var(--color-text-primary)" }}>
                 {trips.length}
               </p>
-              <div className="mt-3" />
             </div>
             <div
               onClick={() => setFilter("upcoming")}
-              className="card p-5 flex flex-col justify-between cursor-pointer transition-all"
+              className="card px-3 py-2 flex flex-col items-center justify-center cursor-pointer transition-all"
               style={{
                 borderColor: filter === "upcoming" ? "var(--color-primary)" : "var(--color-border)",
                 borderWidth: filter === "upcoming" ? "2px" : "1px",
               }}
             >
-              <p className="text-xs font-medium uppercase tracking-wide mb-2 text-center"
+              <p className="text-xs font-medium uppercase tracking-wide mb-1 text-center"
                  style={{ color: "var(--color-text-muted)" }}>Upcoming</p>
-              <p className="text-3xl font-bold text-center"
+              <p className="text-2xl font-bold text-center"
                  style={{ color: filter === "upcoming" ? "var(--color-primary)" : "var(--color-text-primary)" }}>
                 {trips.filter(t => new Date(t.startDate) > today).length}
               </p>
-              <div className="mt-3" />
             </div>
             <div
               onClick={() => setFilter("past")}
-              className="card p-5 flex flex-col justify-between cursor-pointer transition-all"
+              className="card px-3 py-2 flex flex-col items-center justify-center cursor-pointer transition-all"
               style={{
                 borderColor: filter === "past" ? "var(--color-primary)" : "var(--color-border)",
                 borderWidth: filter === "past" ? "2px" : "1px",
               }}
             >
-              <p className="text-xs font-medium uppercase tracking-wide mb-2 text-center"
+              <p className="text-xs font-medium uppercase tracking-wide mb-1 text-center"
                  style={{ color: "var(--color-text-muted)" }}>Past Trips</p>
-              <p className="text-3xl font-bold text-center"
+              <p className="text-2xl font-bold text-center"
                  style={{ color: filter === "past" ? "var(--color-primary)" : "var(--color-text-primary)" }}>
                 {trips.filter(t => new Date(t.startDate) <= today).length}
               </p>
-              <div className="mt-3" />
             </div>
-            <div className="card p-5 flex flex-col justify-between">
-              <p className="text-xs font-medium uppercase tracking-wide mb-2 text-center"
+            <div className="card px-3 py-2 flex flex-col items-center justify-center">
+              <p className="text-xs font-medium uppercase tracking-wide mb-1 text-center"
                  style={{ color: "var(--color-text-muted)" }}>Total Spent</p>
-              <p className="text-3xl font-bold text-center" style={{ color: "#16a34a" }}>
+              <p className="text-2xl font-bold text-center" style={{ color: "#16a34a" }}>
                 ₹{trips.reduce((sum, t) => {
                   const expenses = t.budget?.expenses || [];
                   return sum + expenses.reduce((s, e) => s + e.amount, 0);
                 }, 0).toLocaleString("en-IN")}
               </p>
-              <div className="text-center mt-3">
-                <a
-                  href="/expenses"
-                  className="text-xs font-medium"
-                  style={{ color: "var(--color-primary)" }}
-                >
-                  View All →
-                </a>
-              </div>
+              <a
+                href="/expenses"
+                className="text-xs font-medium mt-1"
+                style={{ color: "var(--color-primary)" }}
+              >
+                View All →
+              </a>
             </div>
           </div>
         )}
